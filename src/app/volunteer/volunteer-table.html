@@ -1,0 +1,79 @@
+<div class="example-container mat-elevation-z8">
+    <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+        <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+            GitHub's API rate limit has been reached. It will be reset in one minute.
+        </div>
+    </div>
+
+    <div class="example-table-container">
+        <!--   
+      <table mat-table [dataSource]="data" class="example-table"
+             matSort matSortActive="created" matSortDisableClear matSortDirection="asc"> -->
+        <table mat-table [dataSource]="data" >
+            <!-- Number Column -->
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef>Ime</th>
+                <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+            </ng-container>
+
+            <!-- Title Column -->
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef>Prezime</th>
+                <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+            </ng-container>
+
+            <!-- State Column -->
+            <ng-container matColumnDef="OIB">
+                <th mat-header-cell *matHeaderCellDef>OIB</th>
+                <td mat-cell *matCellDef="let row">{{row.OIB}}</td>
+            </ng-container>
+
+            <!-- Created Column -->
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef>Username</th>
+                <td mat-cell *matCellDef="let row">{{row.username}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let row">{{row.email}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="birthday">
+                <th mat-header-cell *matHeaderCellDef>Datum rođenja</th>
+                <td mat-cell *matCellDef="let row">{{row.birthday | date:"dd/MM/yyyy"}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="sex">
+                <th mat-header-cell *matHeaderCellDef>Spol</th>
+                <td mat-cell *matCellDef="let row">{{row.sex.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="potentialVolunteer">
+                <th mat-header-cell *matHeaderCellDef>Potencijalni volonter</th>
+                <td mat-cell *matCellDef="let row"><mat-checkbox onclick="return false;" [(ngModel)]="row.potentialVolunteer"></mat-checkbox></td>
+            </ng-container>
+
+            <ng-container matColumnDef="outsideVolunteer">
+                <th mat-header-cell *matHeaderCellDef>Vanjski volonter</th>
+                <td mat-cell *matCellDef="let row"><mat-checkbox onclick="return false;" [(ngModel)]="row.outsideVolunteer"></mat-checkbox></td>
+            </ng-container>
+
+            <ng-container matColumnDef="citizenship">
+                <th mat-header-cell *matHeaderCellDef>Državljanstvo</th>
+                <td mat-cell *matCellDef="let row">{{row.citizenship.name}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+
+    <mat-paginator [length]="resultsLength" [pageSize]="25" [pageSizeOptions]="[10, 25 , 50]"></mat-paginator>
+</div>
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->

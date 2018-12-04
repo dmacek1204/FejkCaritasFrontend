@@ -12,12 +12,14 @@ import { MyCustomMaterialModuleModule } from './my-custom-material-module/my-cus
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { TableOverviewExampleComponent } from './table-overview-example/table-overview-example.component';
+import { TableHttpExample } from './volunteer/volunteer-table';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     MainNavComponent,
-    TableOverviewExampleComponent
+    TableHttpExample
   ],
   imports: [
     BrowserModule,
