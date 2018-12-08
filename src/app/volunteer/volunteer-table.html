@@ -10,7 +10,7 @@
         <!--   
       <table mat-table [dataSource]="data" class="example-table"
              matSort matSortActive="created" matSortDisableClear matSortDirection="asc"> -->
-        <table mat-table [dataSource]="data" >
+        <table mat-table [dataSource]="data">
             <!-- Number Column -->
             <ng-container matColumnDef="firstName">
                 <th mat-header-cell *matHeaderCellDef>Ime</th>
@@ -26,7 +26,7 @@
             <!-- State Column -->
             <ng-container matColumnDef="OIB">
                 <th mat-header-cell *matHeaderCellDef>OIB</th>
-                <td mat-cell *matCellDef="let row">{{row.OIB}}</td>
+                <td mat-cell *matCellDef="let row">{{row.oib}}</td>
             </ng-container>
 
             <!-- Created Column -->
@@ -37,7 +37,10 @@
 
             <ng-container matColumnDef="email">
                 <th mat-header-cell *matHeaderCellDef>Email</th>
-                <td mat-cell *matCellDef="let row">{{row.email}}</td>
+                <td mat-cell *matCellDef="let row">
+                    <div *ngIf="row.email">{{row.email}}</div>
+                    <div *ngIf="!row.email">- - -</div>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="birthday">
@@ -52,12 +55,16 @@
 
             <ng-container matColumnDef="potentialVolunteer">
                 <th mat-header-cell *matHeaderCellDef>Potencijalni volonter</th>
-                <td mat-cell *matCellDef="let row"><mat-checkbox onclick="return false;" [(ngModel)]="row.potentialVolunteer"></mat-checkbox></td>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox onclick="return false;" [(ngModel)]="row.potentialVolunteer"></mat-checkbox>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="outsideVolunteer">
                 <th mat-header-cell *matHeaderCellDef>Vanjski volonter</th>
-                <td mat-cell *matCellDef="let row"><mat-checkbox onclick="return false;" [(ngModel)]="row.outsideVolunteer"></mat-checkbox></td>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox onclick="return false;" [(ngModel)]="row.outsideVolunteer"></mat-checkbox>
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="citizenship">
