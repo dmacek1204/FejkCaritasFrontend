@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, PageEvent } from '@angular/material';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { Volunteer } from './volunteer.model';
@@ -12,16 +12,22 @@ import { VolunteerService } from '../services/volunteer.service';
  * @title Table retrieving data through HTTP
  */
 @Component({
-    selector: 'table-http-example',
+    selector: 'volunteer-table',
     styleUrls: ['volunteer-table.css'],
     templateUrl: 'volunteer-table.html',
 })
-export class TableHttpExample implements OnInit {
+export class VolunteerTable implements OnInit {
     displayedColumns: string[] = ['firstName', 'lastName', 'OIB', 'username', 'email',
         'birthday', 'sex', 'potentialVolunteer', 'outsideVolunteer', 'citizenship'];
-    exampleDatabase: ExampleHttpDao | null;
+    // exampleDatabase: ExampleHttpDao | null;
     data: Volunteer[];
-    resultsLength;
+    resultsLength = 25;
+    pageEvent: PageEvent;
+    datasource: null;
+    pageIndex: number;
+    pageSize: number;
+    sortDirection: string;
+    sortActive: string;
     isLoadingResults = false;
     isRateLimitReached = false;
 
@@ -31,10 +37,17 @@ export class TableHttpExample implements OnInit {
     constructor(private http: HttpClient, private volunteerService: VolunteerService) { }
 
     ngOnInit() {
-        this.volunteerService.getAll().subscribe(
+        this.pageSize = 10;
+        this.pageIndex = 0;
+
+        this.sortActive = "oib";
+        this.sortDirection = "asc";
+
+        this.isLoadingResults = true;
+        this.volunteerService.getAll(this.pageIndex, this.pageSize, this.sortActive, this.sortDirection).subscribe(
             (data) => {
                 this.data = data;
-                this.resultsLength = this.data.length;
+                this.isLoadingResults = false;
             }
         );
         // this.exampleDatabase = new ExampleHttpDao(this.http);
@@ -66,32 +79,47 @@ export class TableHttpExample implements OnInit {
         //         })
         //     ).subscribe(data => this.data = data);
     }
-}
 
-export interface GithubApi {
-    items: GithubIssue[];
-    total_count: number;
-}
+    getServerData(event: PageEvent) {
+        this.isLoadingResults = true;
 
-export interface GithubIssue {
-    created_at: string;
-    number: string;
-    state: string;
-    title: string;
-}
+        this.volunteerService.getAll(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction).subscribe(
+            (data) => {
+                this.data = data;
+                this.isLoadingResults = false;
 
-/** An example database that the data source uses to retrieve data for the table. */
-export class ExampleHttpDao {
-    constructor(private http: HttpClient) { }
+            }
+        );
+    }
 
-    getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-        const href = 'https://api.github.com/search/issues';
-        const requestUrl =
-            `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
+    sortData(event: any) {
+        this.paginator.pageIndex = 0;
 
-        return this.http.get<GithubApi>(requestUrl);
+        this.isLoadingResults = true;
+        this.volunteerService.getAll(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction).subscribe(
+            (data) => {
+                this.data = data;
+                this.isLoadingResults = false;
+            }
+        );
+
     }
 }
+
+
+
+/** An example database that the data source uses to retrieve data for the table. */
+// export class ExampleHttpDao {
+//     constructor(private http: HttpClient) { }
+
+//     getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
+//         const href = 'https://api.github.com/search/issues';
+//         const requestUrl =
+//             `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
+
+//         return this.http.get<GithubApi>(requestUrl);
+//     }
+// }
 
 
 /**  Copyright 2018 Google Inc. All Rights Reserved.
