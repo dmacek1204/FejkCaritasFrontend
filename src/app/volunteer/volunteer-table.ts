@@ -21,7 +21,7 @@ export class VolunteerTable implements OnInit {
         'birthday', 'sex', 'potentialVolunteer', 'outsideVolunteer', 'citizenship'];
     // exampleDatabase: ExampleHttpDao | null;
     data: Volunteer[];
-    resultsLength = 25;
+    resultsLength;
     pageEvent: PageEvent;
     datasource: null;
     pageIndex: number;
@@ -44,40 +44,15 @@ export class VolunteerTable implements OnInit {
         this.sortDirection = "asc";
 
         this.isLoadingResults = true;
+        this.volunteerService.getCount().subscribe(
+            (count) => this.resultsLength = count
+        );
         this.volunteerService.getAll(this.pageIndex, this.pageSize, this.sortActive, this.sortDirection).subscribe(
             (data) => {
                 this.data = data;
                 this.isLoadingResults = false;
             }
         );
-        // this.exampleDatabase = new ExampleHttpDao(this.http);
-
-        // // If the user changes the sort order, reset back to the first page.
-        // this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
-        // merge(this.sort.sortChange, this.paginator.page)
-        //     .pipe(
-        //         startWith({}),
-        //         switchMap(() => {
-        //             this.isLoadingResults = true;
-        //             return this.exampleDatabase!.getRepoIssues(
-        //                 this.sort.active, this.sort.direction, this.paginator.pageIndex);
-        //         }),
-        //         map(data => {
-        //             // Flip flag to show that loading has finished.
-        //             this.isLoadingResults = false;
-        //             this.isRateLimitReached = false;
-        //             this.resultsLength = data.total_count;
-
-        //             return data.items;
-        //         }),
-        //         catchError(() => {
-        //             this.isLoadingResults = false;
-        //             // Catch if the GitHub API has reached its rate limit. Return empty data.
-        //             this.isRateLimitReached = true;
-        //             return observableOf([]);
-        //         })
-        //     ).subscribe(data => this.data = data);
     }
 
     getServerData(event: PageEvent) {

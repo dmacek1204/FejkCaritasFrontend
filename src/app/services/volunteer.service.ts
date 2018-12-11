@@ -25,4 +25,9 @@ export class VolunteerService {
     return this.http.get<Array<Volunteer>>(url);
     // return this.http.get<Array<Volunteer>>(this.volunteerApiUrl, {params: params});
   }
+
+  public getCount(): Observable<number> {
+    let url = this.volunteerApiUrl + "/Count";
+    return this.http.get<number>(url);
+  }
 }
