@@ -3,17 +3,17 @@ import { Citizenship } from '../models/citizenship.model';
 
 export class Volunteer{
 
-    private ID: number;
-    private firstName: string;
-    private lastName: string;
-    private oib: string;
-    private username: string;
-    private email: string;
-    private birthday: Date;
-    private sex: Sex;
-    private potentialVolunteer: boolean;
-    private outsideVolunteer: boolean;
-    private citizenship: Citizenship;
+    public ID: number;
+    public firstName: string;
+    public lastName: string;
+    public oib: string;
+    public username: string;
+    public email: string;
+    public birthday: Date;
+    public sex: Sex;
+    public potentialVolunteer: boolean;
+    public outsideVolunteer: boolean;
+    public citizenship: Citizenship;
 
     constructor(ID: number, firstName: string, lastName: string, oib: string, username: string, email: string, birthday: Date, sex: Sex, potentialVolunteer: boolean, outsideVolunteer: boolean, citizenship: Citizenship) {
 		this.ID = ID;

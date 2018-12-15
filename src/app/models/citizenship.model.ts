@@ -1,6 +1,6 @@
 export class Citizenship {
-    private ID: number;
-    private name: string;
+    public ID: number;
+    public name: string;
     
     constructor(ID: number, name: string) {
         this.ID = ID;

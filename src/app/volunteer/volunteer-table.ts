@@ -17,13 +17,12 @@ import { VolunteerService } from '../services/volunteer.service';
     templateUrl: 'volunteer-table.html',
 })
 export class VolunteerTable implements OnInit {
-    displayedColumns: string[] = ['firstName', 'lastName', 'OIB', 'username', 'email',
+    displayedColumns: string[] = ['firstName', 'lastName', 'oib', 'username', 'email',
         'birthday', 'sex', 'potentialVolunteer', 'outsideVolunteer', 'citizenship'];
     // exampleDatabase: ExampleHttpDao | null;
     data: Volunteer[];
     resultsLength;
     pageEvent: PageEvent;
-    datasource: null;
     pageIndex: number;
     pageSize: number;
     sortDirection: string;
