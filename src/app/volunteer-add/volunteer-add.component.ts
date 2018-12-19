@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Volunteer } from '../volunteer/volunteer.model';
 import { CatalogueService } from '../services/catalogue.service';
 import { Citizenship } from '../models/citizenship.model';
@@ -86,10 +86,9 @@ export class VolunteerAddComponent implements OnInit {
       let volunteer = new Volunteer(null, this.firstName.value, this.lastName.value, this.oib.value,
         this.username.value, this.email.value, this.birthday.value, this.sexCollection.find(option => option.name === this.sex.value), this.potentialVolunteer, this.outsideVolunteer,
         this.citizenshipCollection.find(option => option.name === this.citizenship.value));
-
       this.volunteerService.add(volunteer);
     }
-    else{
+    else {
       this.firstName.markAsTouched();
       this.lastName.markAsTouched();
       this.email.markAsTouched();
@@ -99,7 +98,5 @@ export class VolunteerAddComponent implements OnInit {
       this.sex.markAsTouched();
       this.oib.markAsTouched();
     }
-
-
   }
 }

@@ -2,7 +2,66 @@
     <div class="loading-shade" *ngIf="isLoadingResults">
         <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
+    <div class="filter-container">
+        <button class="filter-container" mat-raised-button color="primary" (click)="showFilter = !showFilter">Prikaži
+            filter</button>
+        <div *ngIf="showFilter">
+            <mat-form-field color="primary" class="form-field-container">
+                <input type="text" matInput placeholder="Ime" [(ngModel)]="filter.firstName" >
+            </mat-form-field>
 
+            <mat-form-field color="primary" class="form-field-container">
+                <input type="text" matInput placeholder="Prezime" [(ngModel)]="filter.lastName">
+            </mat-form-field>
+
+            <mat-form-field color="primary" class="form-field-container">
+                <input type="text" matInput placeholder="OIB" [(ngModel)]="filter.oib">
+            </mat-form-field>
+
+            <mat-form-field color="primary" class="form-field-container">
+                <input type="text" matInput  placeholder="Korisničko ime" [(ngModel)]="filter.username">
+            </mat-form-field>
+
+            <mat-form-field color="primary" class="form-field-container">
+                <input type="text" matInput placeholder="Email" [(ngModel)]="filter.email">
+            </mat-form-field>
+
+            <mat-form-field color="primary" class="form-field-container">
+                <input matInput [matDatepicker]="picker" placeholder="Datum rođenja" [(ngModel)]="filter.birthday">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-checkbox class="checkbox-container" color="primary" name="potentialVolunteer" [(ngModel)]="filter.potentialVolunteer"
+                [labelPosition]="'before'">Potencijalni volonter</mat-checkbox>
+
+            <mat-checkbox class="checkbox-container" color="primary" name="outsideVolunteer" [(ngModel)]="filter.outsideVolunteer"
+                [labelPosition]="'before'">Vanjski volonter</mat-checkbox>
+
+            <mat-form-field color="primary" class="form-field-container">
+                <input type="text" placeholder="Odaberite državljanstvo" matInput [formControl]="citizenship"
+                    [matAutocomplete]="autoCitizenship" >
+                <mat-autocomplete #autoCitizenship="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredCitizenships | async" [value]="option.name">
+                        {{ option.name }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field color="primary" class="form-field-container">
+                <input type="text" placeholder="Odaberite spol" matInput  [matAutocomplete]="autoSex" [formControl]="sex"
+                    >
+                <mat-autocomplete #autoSex="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredSexes | async" [value]="option.name">
+                        {{ option.name }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="filterData()">Filtriraj</button>
+            <button mat-raised-button (click)="disableFilter()">Očisti</button>
+        </div>
+    </div>
     <div class="example-table-container">
         <!--   
       <table mat-table [dataSource]="data" class="example-table"

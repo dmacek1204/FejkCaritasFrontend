@@ -12,6 +12,30 @@
     max-height: 400px;
     overflow: auto;
   }
+
+  .filter-container{
+    position: relative;
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-field-container {
+    position: relative;
+    margin-top: 16px;
+    margin-right: 32px;
+    margin-left: 32px;
+    margin-bottom: 16px;
+}
+
+.checkbox-container {
+    position: relative;
+    margin-top: 32px;
+    margin-right: 32px;
+    margin-left: 32px;
+    margin-bottom: 32px;
+}
   
   table {
     width: 100%;

@@ -3,7 +3,7 @@ import { Citizenship } from '../models/citizenship.model';
 
 export class Volunteer{
 
-    public ID: number;
+    public id: number;
     public firstName: string;
     public lastName: string;
     public oib: string;
@@ -15,8 +15,8 @@ export class Volunteer{
     public outsideVolunteer: boolean;
     public citizenship: Citizenship;
 
-    constructor(ID: number, firstName: string, lastName: string, oib: string, username: string, email: string, birthday: Date, sex: Sex, potentialVolunteer: boolean, outsideVolunteer: boolean, citizenship: Citizenship) {
-		this.ID = ID;
+    constructor(id: number, firstName: string, lastName: string, oib: string, username: string, email: string, birthday: Date, sex: Sex, potentialVolunteer: boolean, outsideVolunteer: boolean, citizenship: Citizenship) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.oib = oib;

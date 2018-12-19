@@ -7,6 +7,9 @@ import { Volunteer } from './volunteer.model';
 import { Citizenship } from '../models/citizenship.model';
 import { Sex } from '../models/sex.model';
 import { VolunteerService } from '../services/volunteer.service';
+import { VolunteerFilter } from '../filters/volunteer-filter.model';
+import { CatalogueService } from '../services/catalogue.service';
+import { FormControl } from '@angular/forms';
 
 /**
  * @title Table retrieving data through HTTP
@@ -29,11 +32,25 @@ export class VolunteerTable implements OnInit {
     sortActive: string;
     isLoadingResults = false;
     isRateLimitReached = false;
+    showFilter = false;
+    filteredSearch = false;
+
+    filter = new VolunteerFilter();
+
+    sex = new FormControl('');
+    citizenship = new FormControl('');
+
+    citizenshipCollection: Citizenship[];
+    sexCollection: Sex[];
+
+    filteredCitizenships: Observable<Citizenship[]>;
+    filteredSexes: Observable<Sex[]>;
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    constructor(private http: HttpClient, private volunteerService: VolunteerService) { }
+    constructor(private http: HttpClient, private volunteerService: VolunteerService,
+        private catalogueService: CatalogueService) { }
 
     ngOnInit() {
         this.pageSize = 10;
@@ -52,30 +69,129 @@ export class VolunteerTable implements OnInit {
                 this.isLoadingResults = false;
             }
         );
+
+        this.isLoadingResults = true;
+        this.catalogueService.getCitizenships().subscribe(
+            data => {
+                this.citizenshipCollection = data;
+                this.isLoadingResults = false;
+
+                this.filteredCitizenships = this.citizenship.valueChanges.pipe(
+                    startWith(''),
+                    map((value: string) => this.filterCitizenships(value))
+                )
+            }
+        );
+
+        this.isLoadingResults = true;
+        this.catalogueService.getSexes().subscribe(
+            data => {
+                this.sexCollection = data;
+                this.isLoadingResults = false;
+
+                this.filteredSexes = this.sex.valueChanges.pipe(
+                    startWith(''),
+                    map((value: string) => this.filterSexes(value))
+                )
+            }
+        );
     }
 
     getServerData(event: PageEvent) {
-        this.isLoadingResults = true;
+        if (!this.filteredSearch) {
+            this.isLoadingResults = true;
 
-        this.volunteerService.getAll(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction).subscribe(
+            this.volunteerService.getAll(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction).subscribe(
+                (data) => {
+                    this.data = data;
+                    this.isLoadingResults = false;
+
+                }
+            );
+        } else {
+            this.filterData();
+        }
+
+    }
+
+    sortData(event: any) {
+        if (!this.filteredSearch) {
+            this.paginator.pageIndex = 0;
+
+            this.isLoadingResults = true;
+            this.volunteerService.getAll(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction).subscribe(
+                (data) => {
+                    this.data = data;
+                    this.isLoadingResults = false;
+                }
+            );
+        } else {
+            this.filterData();
+        }
+
+
+    }
+
+    filterData() {
+        this.filteredSearch = true;
+
+        if (this.sex.value !== null && this.sex.value !== '') {
+            this.filter.sexID = this.sexCollection.find(option => option.name === this.sex.value).id;
+        }
+        if (this.citizenship.value !== null && this.citizenship.value !== '') {
+            this.filter.citizenshipID = this.citizenshipCollection.find(option => option.name === this.citizenship.value).id;
+        }
+        this.isLoadingResults = true;
+        this.volunteerService.search(this.filter, this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction)
+            .subscribe(
+                (response) => {
+                    this.data = response.data;
+                    this.resultsLength = response.totalCount;
+                    this.isLoadingResults = false;
+                }
+            )
+    }
+
+    disableFilter() {
+        this.filteredSearch = false;
+
+        this.sex.reset();
+        this.citizenship.reset();
+        this.filter.firstName = undefined;
+        this.filter.lastName = undefined;
+        this.filter.oib = undefined;
+        this.filter.birthday = undefined;
+        this.filter.outsideVolunteer = undefined;
+        this.filter.potentialVolunteer = undefined;
+        this.filter.username = undefined;
+        this.filter.email = undefined;
+
+        this.isLoadingResults = true;
+        this.volunteerService.getCount().subscribe(
+            (count) => this.resultsLength = count
+        );
+        this.volunteerService.getAll(this.pageIndex, this.pageSize, this.sortActive, this.sortDirection).subscribe(
             (data) => {
                 this.data = data;
                 this.isLoadingResults = false;
-
             }
         );
     }
 
-    sortData(event: any) {
-        this.paginator.pageIndex = 0;
+    private filterCitizenships(value: string): Citizenship[] {
+        if (value !== null) {
+            const filterValue = value.toLowerCase();
 
-        this.isLoadingResults = true;
-        this.volunteerService.getAll(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction).subscribe(
-            (data) => {
-                this.data = data;
-                this.isLoadingResults = false;
-            }
-        );
+            return this.citizenshipCollection.filter(option => option.name.toLowerCase().includes(filterValue));
+        }
+    }
+
+    private filterSexes(value: string): Sex[] {
+        if (value !== null) {
+            const filterValue = value.toLowerCase();
+
+            return this.sexCollection.filter(option => option.name.toLowerCase().includes(filterValue));
+        }
 
     }
 }

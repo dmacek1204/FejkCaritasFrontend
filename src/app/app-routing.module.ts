@@ -7,11 +7,12 @@ import { VolunteerAddComponent } from './volunteer-add/volunteer-add.component';
 const routes: Routes = [
   { path: 'volunteers', component: VolunteerTable },
   { path: 'addVolunteer', component: VolunteerAddComponent },
-  { path: '*', component: VolunteerTable}
+  { path: '', redirectTo: '/volunteers', pathMatch: 'full' },
+  { path: '*', component: VolunteerTable }
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes)],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

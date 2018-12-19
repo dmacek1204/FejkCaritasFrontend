@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Volunteer } from '../volunteer/volunteer.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { VolunteerFilter } from '../filters/volunteer-filter.model';
+import { FilterResponse } from '../models/filter-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +38,29 @@ export class VolunteerService {
     headers = headers.append('Content-Type', 'application/json');
 
     this.http.post(this.volunteerApiUrl, JSON.stringify(volunteer), {headers: headers}).subscribe();
+  }
+
+  public search(filter: VolunteerFilter, pageIndex: number, pageSize: number, sortActive: string, sortDirection: string): Observable<FilterResponse> {
+    let url = this.volunteerApiUrl + '/Search';
+    
+    let params: HttpParams = new HttpParams();
+    params = params.append("pageIndex", pageIndex.toString());
+    params = params.append("pageSize", pageSize.toString());
+    params = params.append("sortColumn", sortActive);
+    params = params.append("sortOrder", sortDirection);
+    params = params.append("firstName",  filter.firstName ? filter.firstName : '');
+    params = params.append("lastName", filter.lastName ? filter.lastName : '');
+    params = params.append("oib", filter.oib ? filter.oib : '');
+    params = params.append("username", filter.username ? filter.username : '');
+    params = params.append("email", filter.email ? filter.email : '');
+    params = params.append("potentialVolunteer", filter.potentialVolunteer ? filter.potentialVolunteer.toString() : null);
+    params = params.append("outsideVolunteer", filter.outsideVolunteer ? filter.outsideVolunteer.toString() : null);
+    params = params.append("birthday", filter.birthday ?  filter.birthday.toString() : null);
+    params = params.append("sexID", filter.sexID ?  filter.sexID.toString() : null);
+    params = params.append("citizenshipID", filter.citizenshipID ?  filter.citizenshipID.toString() : null);
+
+    return this.http.get<FilterResponse>(url, {params: params});
+
+
   }
 }

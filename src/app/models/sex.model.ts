@@ -1,9 +1,9 @@
 export class Sex {
-    public ID: number;
+    public id: number;
     public name: string;
     
-    constructor(ID: number, name: string) {
-        this.ID = ID;
+    constructor(id: number, name: string) {
+        this.id = id;
         this.name = name;
     }
 }
