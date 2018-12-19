@@ -3,7 +3,7 @@ import { Volunteer } from '../volunteer/volunteer.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { VolunteerFilter } from '../filters/volunteer-filter.model';
-import { FilterResponse } from '../models/filter-response.model';
+import { VolunteerFilterResponse } from '../models/volunteer-filter-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,14 +33,14 @@ export class VolunteerService {
     return this.http.get<number>(url);
   }
 
-  public add(volunteer: Volunteer): void {
+  public add(volunteer: Volunteer): Observable<boolean> {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
 
-    this.http.post(this.volunteerApiUrl, JSON.stringify(volunteer), {headers: headers}).subscribe();
+    return this.http.post<boolean>(this.volunteerApiUrl, JSON.stringify(volunteer), {headers: headers});
   }
 
-  public search(filter: VolunteerFilter, pageIndex: number, pageSize: number, sortActive: string, sortDirection: string): Observable<FilterResponse> {
+  public search(filter: VolunteerFilter, pageIndex: number, pageSize: number, sortActive: string, sortDirection: string): Observable<VolunteerFilterResponse> {
     let url = this.volunteerApiUrl + '/Search';
     
     let params: HttpParams = new HttpParams();
@@ -59,8 +59,13 @@ export class VolunteerService {
     params = params.append("sexID", filter.sexID ?  filter.sexID.toString() : null);
     params = params.append("citizenshipID", filter.citizenshipID ?  filter.citizenshipID.toString() : null);
 
-    return this.http.get<FilterResponse>(url, {params: params});
+    return this.http.get<VolunteerFilterResponse>(url, {params: params});
+  }
 
+  public delete(id: number): Observable<boolean> {
+    let params = new HttpParams();
+    params = params.append("id", id.toString());
 
+    return this.http.delete<boolean>(this.volunteerApiUrl, {params: params});
   }
 }

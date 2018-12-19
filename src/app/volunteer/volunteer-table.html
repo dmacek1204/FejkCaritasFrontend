@@ -7,7 +7,7 @@
             filter</button>
         <div *ngIf="showFilter">
             <mat-form-field color="primary" class="form-field-container">
-                <input type="text" matInput placeholder="Ime" [(ngModel)]="filter.firstName" >
+                <input type="text" matInput placeholder="Ime" [(ngModel)]="filter.firstName">
             </mat-form-field>
 
             <mat-form-field color="primary" class="form-field-container">
@@ -19,7 +19,7 @@
             </mat-form-field>
 
             <mat-form-field color="primary" class="form-field-container">
-                <input type="text" matInput  placeholder="Korisničko ime" [(ngModel)]="filter.username">
+                <input type="text" matInput placeholder="Korisničko ime" [(ngModel)]="filter.username">
             </mat-form-field>
 
             <mat-form-field color="primary" class="form-field-container">
@@ -32,15 +32,18 @@
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
 
-            <mat-checkbox class="checkbox-container" color="primary" name="potentialVolunteer" [(ngModel)]="filter.potentialVolunteer"
-                [labelPosition]="'before'">Potencijalni volonter</mat-checkbox>
+            <div class="checkbox-container">
+                <mat-checkbox color="primary" name="potentialVolunteer" [(ngModel)]="filter.potentialVolunteer"
+                    [labelPosition]="'before'">Potencijalni volonter</mat-checkbox>
+            </div>
 
-            <mat-checkbox class="checkbox-container" color="primary" name="outsideVolunteer" [(ngModel)]="filter.outsideVolunteer"
-                [labelPosition]="'before'">Vanjski volonter</mat-checkbox>
-
+            <div class="checkbox-container">
+                <mat-checkbox color="primary" name="outsideVolunteer" [(ngModel)]="filter.outsideVolunteer"
+                    [labelPosition]="'before'">Vanjski volonter</mat-checkbox>
+            </div>
             <mat-form-field color="primary" class="form-field-container">
                 <input type="text" placeholder="Odaberite državljanstvo" matInput [formControl]="citizenship"
-                    [matAutocomplete]="autoCitizenship" >
+                    [matAutocomplete]="autoCitizenship">
                 <mat-autocomplete #autoCitizenship="matAutocomplete">
                     <mat-option *ngFor="let option of filteredCitizenships | async" [value]="option.name">
                         {{ option.name }}
@@ -49,8 +52,7 @@
             </mat-form-field>
 
             <mat-form-field color="primary" class="form-field-container">
-                <input type="text" placeholder="Odaberite spol" matInput  [matAutocomplete]="autoSex" [formControl]="sex"
-                    >
+                <input type="text" placeholder="Odaberite spol" matInput [matAutocomplete]="autoSex" [formControl]="sex">
                 <mat-autocomplete #autoSex="matAutocomplete">
                     <mat-option *ngFor="let option of filteredSexes | async" [value]="option.name">
                         {{ option.name }}
@@ -127,6 +129,15 @@
             <ng-container matColumnDef="citizenship">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Državljanstvo</th>
                 <td mat-cell *matCellDef="let row">{{row.citizenship.name}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Akcije</th>
+                <td mat-cell *matCellDef="let row">
+                    <button mat-icon-button matTooltip="Brisanje stavke" (click)="deleteData(row.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

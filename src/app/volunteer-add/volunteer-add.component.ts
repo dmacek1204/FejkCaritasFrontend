@@ -7,6 +7,7 @@ import { Sex } from '../models/sex.model';
 import { Observable } from 'rxjs';
 import { startWith, switchMap, map } from 'rxjs/operators';
 import { VolunteerService } from '../services/volunteer.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-volunteer-add',
@@ -34,7 +35,8 @@ export class VolunteerAddComponent implements OnInit {
 
   isLoadingResults: boolean;
 
-  constructor(private catalogueService: CatalogueService, private volunteerService: VolunteerService) { }
+  constructor(private catalogueService: CatalogueService, private volunteerService: VolunteerService,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit() {
 
@@ -86,7 +88,19 @@ export class VolunteerAddComponent implements OnInit {
       let volunteer = new Volunteer(null, this.firstName.value, this.lastName.value, this.oib.value,
         this.username.value, this.email.value, this.birthday.value, this.sexCollection.find(option => option.name === this.sex.value), this.potentialVolunteer, this.outsideVolunteer,
         this.citizenshipCollection.find(option => option.name === this.citizenship.value));
-      this.volunteerService.add(volunteer);
+      this.volunteerService.add(volunteer).subscribe(
+        response => {
+          if (response) {
+            this.snackBar.open("Volonter uspješno dodan", "Zatvori", {
+              duration: 3000
+            });
+          } else {
+            this.snackBar.open("Greška", "RIP", {
+              duration: 3000
+            });
+          }
+        }
+      );
     }
     else {
       this.firstName.markAsTouched();

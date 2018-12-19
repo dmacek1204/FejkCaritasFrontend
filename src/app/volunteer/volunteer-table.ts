@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, PageEvent } from '@angular/material';
+import { MatPaginator, MatSort, PageEvent, MatSnackBar } from '@angular/material';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { Volunteer } from './volunteer.model';
@@ -21,7 +21,7 @@ import { FormControl } from '@angular/forms';
 })
 export class VolunteerTable implements OnInit {
     displayedColumns: string[] = ['firstName', 'lastName', 'oib', 'username', 'email',
-        'birthday', 'sex', 'potentialVolunteer', 'outsideVolunteer', 'citizenship'];
+        'birthday', 'sex', 'potentialVolunteer', 'outsideVolunteer', 'citizenship', 'actions'];
     // exampleDatabase: ExampleHttpDao | null;
     data: Volunteer[];
     resultsLength;
@@ -50,7 +50,7 @@ export class VolunteerTable implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(private http: HttpClient, private volunteerService: VolunteerService,
-        private catalogueService: CatalogueService) { }
+        private catalogueService: CatalogueService, public snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.pageSize = 10;
@@ -130,6 +130,22 @@ export class VolunteerTable implements OnInit {
         }
 
 
+    }
+
+    deleteData(id: number){
+        this.volunteerService.delete(id).subscribe(
+            response => {
+                if(response){
+                    this.snackBar.open("Volonter uspješno obrisan", "Zatvori", {
+                        duration: 3000
+                    });
+                } else {
+                    this.snackBar.open("Greška!", "RIP", {
+                        duration: 3000
+                    });
+                }
+            }
+        )
     }
 
     filterData() {
