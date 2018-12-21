@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Volunteer } from '../volunteer/volunteer.model';
 import { CatalogueService } from '../services/catalogue.service';
 import { Citizenship } from '../models/citizenship.model';
@@ -19,7 +19,9 @@ export class VolunteerAddComponent implements OnInit {
   firstName = new FormControl('');
   lastName = new FormControl('');
   oib = new FormControl('');
-  email = new FormControl('');
+  email = new FormControl('', [
+    Validators.email
+  ]);
   username = new FormControl('')
   birthday = new FormControl('');
   sex = new FormControl('');
@@ -64,9 +66,7 @@ export class VolunteerAddComponent implements OnInit {
           map(value => this.filterSexes(value))
         )
       }
-    );
-
-
+    );   
   }
 
   private filterCitizenships(value: any): Citizenship[] {
@@ -92,11 +92,13 @@ export class VolunteerAddComponent implements OnInit {
         response => {
           if (response) {
             this.snackBar.open("Volonter uspješno dodan", "Zatvori", {
-              duration: 3000
+              duration: 3000,
+              panelClass: ['snackbar-success']
             });
           } else {
             this.snackBar.open("Greška", "RIP", {
-              duration: 3000
+              duration: 3000,
+              panelClass: ['snackbar-error']
             });
           }
         }

@@ -9,7 +9,7 @@
   
   .example-table-container {
     position: relative;
-    max-height: 400px;
+    max-height: 800px;
     overflow: auto;
   }
 

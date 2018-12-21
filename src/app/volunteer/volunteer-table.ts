@@ -132,16 +132,25 @@ export class VolunteerTable implements OnInit {
 
     }
 
-    deleteData(id: number){
+    deleteData(id: number) {
         this.volunteerService.delete(id).subscribe(
             response => {
-                if(response){
+                if (response) {
                     this.snackBar.open("Volonter uspješno obrisan", "Zatvori", {
-                        duration: 3000
+                        duration: 3000,
+                        panelClass: ['snackbar-success']
                     });
+                    this.isLoadingResults = true;
+                    this.volunteerService.getAll(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction).subscribe(
+                        (data) => {
+                            this.data = data;
+                            this.isLoadingResults = false;
+                        }
+                    );
                 } else {
                     this.snackBar.open("Greška!", "RIP", {
-                        duration: 3000
+                        duration: 3000,
+                        panelClass: ['snackbar-error']
                     });
                 }
             }
@@ -158,6 +167,8 @@ export class VolunteerTable implements OnInit {
             this.filter.citizenshipID = this.citizenshipCollection.find(option => option.name === this.citizenship.value).id;
         }
         this.isLoadingResults = true;
+        this.paginator.pageIndex = 0;
+        console.log(this.filter.outsideVolunteer);
         this.volunteerService.search(this.filter, this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction)
             .subscribe(
                 (response) => {

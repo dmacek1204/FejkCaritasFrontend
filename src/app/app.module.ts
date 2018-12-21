@@ -16,6 +16,7 @@ import { VolunteerTable } from './volunteer/volunteer-table';
 import { AppRoutingModule } from './/app-routing.module';
 import { VolunteerAddComponent } from './volunteer-add/volunteer-add.component';
 import { AppDateAdapter, APP_DATE_FORMATS } from './app-date-adapter.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AppDateAdapter, APP_DATE_FORMATS } from './app-date-adapter.component';
     AppComponent,
     MainNavComponent,
     VolunteerTable,
-    VolunteerAddComponent
+    VolunteerAddComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

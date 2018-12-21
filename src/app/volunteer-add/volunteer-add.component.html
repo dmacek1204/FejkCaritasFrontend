@@ -1,75 +1,104 @@
 <div class="loading-shade" *ngIf="isLoadingResults">
-    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
 </div>
 
 <div class="container mat-elevation-z8">
   <form class="form-container">
 
-    <mat-form-field class="form-field-container">
-      <input type="text" matInput [formControl]="firstName" placeholder="Ime" required>
-      <mat-error *ngIf="firstName.hasError('required')">
-        Ime je obavezno
-      </mat-error>
-    </mat-form-field>
+    <mat-grid-list cols="5" rowHeight="200px">
 
-    <mat-form-field class="form-field-container">
-      <input type="text" matInput [formControl]="lastName" placeholder="Prezime" required>
-      <mat-error *ngIf="lastName.hasError('required')">
-        Prezime je obavezno
-      </mat-error>
-    </mat-form-field>
+      <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+        <mat-form-field class="form-field-container">
+          <input type="text" matInput [formControl]="firstName" placeholder="Ime" required>
+          <mat-error *ngIf="firstName.hasError('required')">
+            Ime je obavezno
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-form-field class="form-field-container">
-      <input type="text" matInput [formControl]="oib" placeholder="OIB" required maxlength="11">
-      <mat-error *ngIf="oib.hasError('required')">
-        OIB je obavezan
-      </mat-error>
-    </mat-form-field>
+      <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+        <mat-form-field class="form-field-container">
+          <input type="text" matInput [formControl]="lastName" placeholder="Prezime" required>
+          <mat-error *ngIf="lastName.hasError('required')">
+            Prezime je obavezno
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-form-field class="form-field-container">
-      <input type="text" matInput [formControl]="username" placeholder="Korisničko ime" required>
-      <mat-error *ngIf="username.hasError('required')">
-        Korisničko ime je obvezno
-      </mat-error>
-    </mat-form-field>
+      <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+        <mat-form-field class="form-field-container">
+          <input type="text" matInput [formControl]="oib" placeholder="OIB" required maxlength="11">
+          <mat-error *ngIf="oib.hasError('required')">
+            OIB je obavezan
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-form-field class="form-field-container">
-      <input type="text" matInput [formControl]="email" placeholder="Email">
-    </mat-form-field>
+      <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+        <mat-form-field class="form-field-container">
+          <input type="text" matInput [formControl]="username" placeholder="Korisničko ime" required>
+          <mat-error *ngIf="username.hasError('required')">
+            Korisničko ime je obvezno
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-form-field class="form-field-container">
-      <input matInput [matDatepicker]="picker" placeholder="Datum rođenja" [formControl]="birthday" required>
-      <mat-error *ngIf="birthday.hasError('required')">Datum rođenja je obavezan</mat-error>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+      <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+        <mat-form-field class="form-field-container">
+          <input type="email" matInput [formControl]="email" placeholder="Email">
+          <mat-error *ngIf="email.hasError('email')">
+            Neispravan email
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-checkbox class="checkbox-container" color="primary" name="potentialVolunteer" [(ngModel)]="potentialVolunteer"
-      [labelPosition]="'before'">Potencijalni volonter</mat-checkbox>
+      <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+        <mat-form-field class="form-field-container">
+          <input matInput [matDatepicker]="picker" placeholder="Datum rođenja" [formControl]="birthday" required>
+          <mat-error *ngIf="birthday.hasError('required')">Datum rođenja je obavezan</mat-error>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-checkbox class="checkbox-container" color="primary" name="outsideVolunteer" [(ngModel)]="outsideVolunteer"
-      [labelPosition]="'before'">Vanjski volonter</mat-checkbox>
+      <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+        <mat-checkbox class="checkbox-container" color="primary" name="potentialVolunteer" [(ngModel)]="potentialVolunteer"
+          [labelPosition]="'before'">Potencijalni volonter</mat-checkbox>
+      </mat-grid-tile>
 
-    <mat-form-field class="form-field-container">
-      <input type="text" placeholder="Odaberite državljanstvo" matInput [formControl]="citizenship" [matAutocomplete]="autoCitizenship" required>
-      <mat-autocomplete #autoCitizenship="matAutocomplete">
-        <mat-option *ngFor="let option of filteredCitizenships | async" [value]="option.name">
-          {{ option.name }}
-        </mat-option>
-      </mat-autocomplete>
-      <mat-error *ngIf="citizenship.hasError('required')">Državljanstvo je obavezno</mat-error>
-    </mat-form-field>
+      <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+        <mat-checkbox class="checkbox-container" color="primary" name="outsideVolunteer" [(ngModel)]="outsideVolunteer"
+          [labelPosition]="'before'">Vanjski volonter</mat-checkbox>
+      </mat-grid-tile>
 
-    <mat-form-field class="form-field-container">
-      <input type="text" placeholder="Odaberite spol" matInput [formControl]="sex" [matAutocomplete]="autoSex" required>
-      <mat-autocomplete #autoSex="matAutocomplete">
-        <mat-option *ngFor="let option of filteredSexes | async" [value]="option.name">
-          {{ option.name }}
-        </mat-option>
-      </mat-autocomplete>
-      <mat-error *ngIf="sex.hasError('required')">Spol je obavezan</mat-error>
-    </mat-form-field>
+      <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+        <mat-form-field class="form-field-container">
+          <input type="text" placeholder="Odaberite državljanstvo" matInput [formControl]="citizenship"
+            [matAutocomplete]="autoCitizenship" required>
+          <mat-autocomplete #autoCitizenship="matAutocomplete">
+            <mat-option *ngFor="let option of filteredCitizenships | async" [value]="option.name">
+              {{ option.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="citizenship.hasError('required')">Državljanstvo je obavezno</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <button type="submit" mat-raised-button color="primary" (click)="onSubmit()">Dodaj novog volontera</button>    
+      <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+        <mat-form-field class="form-field-container">
+          <input type="text" placeholder="Odaberite spol" matInput [formControl]="sex" [matAutocomplete]="autoSex"
+            required>
+          <mat-autocomplete #autoSex="matAutocomplete">
+            <mat-option *ngFor="let option of filteredSexes | async" [value]="option.name">
+              {{ option.name }}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="sex.hasError('required')">Spol je obavezan</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile [colspan]="5" [rowspan]="1" color="primary">
+        <button type="submit" mat-raised-button color="primary" (click)="onSubmit()">Dodaj novog volontera</button>
+      </mat-grid-tile>
+    </mat-grid-list>
   </form>
 </div>

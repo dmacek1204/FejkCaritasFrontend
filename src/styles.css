@@ -35,3 +35,11 @@ body {
     align-items: center;
     justify-content: center;
   }
+
+  .snackbar-success {
+    background: #66ffc2;
+  }
+
+  .snackbar-error {
+    background: red;
+  }

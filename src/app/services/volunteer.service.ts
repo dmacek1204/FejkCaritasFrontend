@@ -53,8 +53,8 @@ export class VolunteerService {
     params = params.append("oib", filter.oib ? filter.oib : '');
     params = params.append("username", filter.username ? filter.username : '');
     params = params.append("email", filter.email ? filter.email : '');
-    params = params.append("potentialVolunteer", filter.potentialVolunteer ? filter.potentialVolunteer.toString() : null);
-    params = params.append("outsideVolunteer", filter.outsideVolunteer ? filter.outsideVolunteer.toString() : null);
+    params = params.append("potentialVolunteer", filter.potentialVolunteer !== undefined ? filter.potentialVolunteer.toString() : null);
+    params = params.append("outsideVolunteer", filter.outsideVolunteer !== undefined ? filter.outsideVolunteer.toString() : null);
     params = params.append("birthday", filter.birthday ?  filter.birthday.toString() : null);
     params = params.append("sexID", filter.sexID ?  filter.sexID.toString() : null);
     params = params.append("citizenshipID", filter.citizenshipID ?  filter.citizenshipID.toString() : null);
