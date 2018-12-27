@@ -15,7 +15,7 @@ export class Volunteer{
     public outsideVolunteer: boolean;
     public citizenship: Citizenship;
 
-    constructor(id: number, firstName: string, lastName: string, oib: string, username: string, email: string, birthday: Date, sex: Sex, potentialVolunteer: boolean, outsideVolunteer: boolean, citizenship: Citizenship) {
+    constructor(id?: number, firstName?: string, lastName?: string, oib?: string, username?: string, email?: string, birthday?: Date, sex?: Sex, potentialVolunteer?: boolean, outsideVolunteer?: boolean, citizenship?: Citizenship) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;

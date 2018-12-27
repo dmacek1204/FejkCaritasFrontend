@@ -1,0 +1,77 @@
+<mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <label *ngIf="volunteer.firstName">
+        {{volunteer.firstName}} {{volunteer.lastName}}
+      </label>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <mat-grid-list cols="5" rowHeight="80px">
+    <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+      <mat-form-field>
+        <input matInput placeholder="Ime:" value="{{volunteer.firstName}}" readonly>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+      <h2 for="lastName">Prezime: </h2>
+      <label *ngIf="volunteer.lastName">{{volunteer.lastName}}</label>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+      <h2 for="email">Email: </h2>
+      <label *ngIf="volunteer.email">{{volunteer.email}}</label>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+      <h2 for="birthday">Datum rođenja: </h2>
+      <label *ngIf="volunteer.birthday">{{volunteer.birthday | date:"dd/MM/yyyy"}}</label>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+      <h2 for="sex">Spol: </h2>
+      <label *ngIf="volunteer.sex">{{volunteer.sex.name}}</label>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+      <h2 for="citizenship">Državljanstvo: </h2>
+      <label *ngIf="volunteer.citizenship">{{volunteer.citizenship.name}}</label>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+      <h2 for="username">Korisničko ime: </h2>
+      <label *ngIf="volunteer.username">{{volunteer.username}}</label>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+      <h2 for="outsideVolunteer">Vanjski volonter: </h2>
+      <div *ngIf="volunteer.outsideVolunteer">
+        <label *ngIf="volunteer.outsideVolunteer">
+          Da
+        </label>
+        <label *ngIf="!volunteer.outsideVolunteer">
+          Ne
+        </label>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+      <h2 for="potentialVolunteer">Potencijalni volonter: </h2>
+      <div *ngIf="volunteer.potentialVolunteer !== null">
+        <label *ngIf="volunteer.potentialVolunteer">
+          Da
+        </label>
+        <label *ngIf="!volunteer.potentialVolunteer">
+          Ne
+        </label>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1" color="primary">
+      <h2 for="oib">OIB: </h2>
+      <label *ngIf="volunteer.oib">{{volunteer.oib}}</label>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</mat-expansion-panel>

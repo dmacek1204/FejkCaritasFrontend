@@ -33,11 +33,24 @@ export class VolunteerService {
     return this.http.get<number>(url);
   }
 
+  public get(id: number): Observable<Volunteer> {
+    let url = this.volunteerApiUrl + '/' + id.toString();
+
+    return this.http.get<Volunteer>(url);
+  }
+
   public add(volunteer: Volunteer): Observable<boolean> {
     let headers = new HttpHeaders();
     headers = headers.append('Content-Type', 'application/json');
 
     return this.http.post<boolean>(this.volunteerApiUrl, JSON.stringify(volunteer), {headers: headers});
+  }
+
+  public update(volunteer: Volunteer): Observable<boolean> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+
+    return this.http.put<boolean>(this.volunteerApiUrl, JSON.stringify(volunteer), {headers: headers});
   }
 
   public search(filter: VolunteerFilter, pageIndex: number, pageSize: number, sortActive: string, sortDirection: string): Observable<VolunteerFilterResponse> {

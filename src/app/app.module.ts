@@ -17,6 +17,9 @@ import { AppRoutingModule } from './/app-routing.module';
 import { VolunteerAddComponent } from './volunteer-add/volunteer-add.component';
 import { AppDateAdapter, APP_DATE_FORMATS } from './app-date-adapter.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { VolunteerInfoComponent } from './volunteer-info/volunteer-info.component';
+import { VolunteerOverviewComponent } from './volunteer-overview/volunteer-overview.component';
+import { VolunteerEditComponent } from './volunteer-edit/volunteer-edit.component';
 
 
 @NgModule({
@@ -25,7 +28,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MainNavComponent,
     VolunteerTable,
     VolunteerAddComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    VolunteerInfoComponent,
+    VolunteerOverviewComponent,
+    VolunteerEditComponent
   ],
   imports: [
     BrowserModule,

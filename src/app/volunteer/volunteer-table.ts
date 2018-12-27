@@ -137,7 +137,7 @@ export class VolunteerTable implements OnInit {
             response => {
                 if (response) {
                     this.snackBar.open("Volonter uspješno obrisan", "Zatvori", {
-                        duration: 3000,
+                        duration: 10000,
                         panelClass: ['snackbar-success']
                     });
                     this.isLoadingResults = true;
@@ -149,7 +149,7 @@ export class VolunteerTable implements OnInit {
                     );
                 } else {
                     this.snackBar.open("Greška!", "RIP", {
-                        duration: 3000,
+                        duration: 10000,
                         panelClass: ['snackbar-error']
                     });
                 }
