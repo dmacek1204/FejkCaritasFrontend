@@ -1,0 +1,23 @@
+<div class="mat-elevatuion-z8 container">
+  <app-volunteer-overview></app-volunteer-overview>
+  <mat-divider></mat-divider>
+  <mat-divider></mat-divider>
+  <nav mat-tab-nav-bar mat-align-tabs="end">
+    <a mat-tab-link routerLink="./edit" routerLinkActive #rlaEdit="routerLinkActive" [active]="rlaEdit.isActive">
+      Osnovno
+    </a>
+    <a mat-tab-link routerLink="./contracts" routerLinkActive #rlaContracts="routerLinkActive" [active]="rlaContracts.isActive">
+      Ugovori
+    </a>
+    <a mat-tab-link routerLink="./documents" routerLinkActive #rlaDocuments="routerLinkActive" [active]="rlaDocuments.isActive">
+      Dokumenti
+    </a>
+    <a mat-tab-link routerLink="./volunteering-hours" routerLinkActive #rlaHours="routerLinkActive" [active]="rlaHours.isActive">
+      Sati
+    </a>
+    <a mat-tab-link routerLink="./expenses" routerLinkActive #rlaExpenses="routerLinkActive" [active]="rlaExpenses.isActive">
+      Troškovi
+    </a>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

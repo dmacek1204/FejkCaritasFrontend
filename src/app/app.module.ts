@@ -14,12 +14,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { VolunteerTable } from './volunteer/volunteer-table';
 import { AppRoutingModule } from './/app-routing.module';
-import { VolunteerAddComponent } from './volunteer-add/volunteer-add.component';
 import { AppDateAdapter, APP_DATE_FORMATS } from './app-date-adapter.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { VolunteerInfoComponent } from './volunteer-info/volunteer-info.component';
-import { VolunteerOverviewComponent } from './volunteer-overview/volunteer-overview.component';
-import { VolunteerEditComponent } from './volunteer-edit/volunteer-edit.component';
+import { ContractComponent } from './volunteer/contract/contract.component';
+import { DocumentComponent } from './volunteer/document/document.component';
+import { ExpenseComponent } from './volunteer/expense/expense.component';
+import { VolunteeringHoursComponent } from './volunteer/volunteering-hours/volunteering-hours.component';
+import { VolunteerAddComponent } from './volunteer/volunteer-add/volunteer-add.component';
+import { VolunteerInfoComponent } from './volunteer/volunteer-info/volunteer-info.component';
+import { VolunteerOverviewComponent } from './volunteer/volunteer-overview/volunteer-overview.component';
+import { VolunteerEditComponent } from './volunteer/volunteer-edit/volunteer-edit.component';
 
 
 @NgModule({
@@ -31,7 +35,11 @@ import { VolunteerEditComponent } from './volunteer-edit/volunteer-edit.componen
     NotFoundComponent,
     VolunteerInfoComponent,
     VolunteerOverviewComponent,
-    VolunteerEditComponent
+    VolunteerEditComponent,
+    ContractComponent,
+    DocumentComponent,
+    ExpenseComponent,
+    VolunteeringHoursComponent
   ],
   imports: [
     BrowserModule,

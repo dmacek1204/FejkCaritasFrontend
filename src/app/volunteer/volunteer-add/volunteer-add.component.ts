@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Volunteer } from '../volunteer/volunteer.model';
-import { CatalogueService } from '../services/catalogue.service';
-import { Citizenship } from '../models/citizenship.model';
-import { Sex } from '../models/sex.model';
 import { Observable } from 'rxjs';
 import { startWith, switchMap, map } from 'rxjs/operators';
-import { VolunteerService } from '../services/volunteer.service';
 import { MatSnackBar } from '@angular/material';
+import { Citizenship } from 'src/app/models/citizenship.model';
+import { Sex } from 'src/app/models/sex.model';
+import { CatalogueService } from 'src/app/services/catalogue.service';
+import { VolunteerService } from 'src/app/services/volunteer.service';
+import { Volunteer } from '../volunteer.model';
 
 @Component({
   selector: 'app-volunteer-add',

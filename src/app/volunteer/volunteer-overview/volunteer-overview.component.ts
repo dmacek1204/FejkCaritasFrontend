@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { VolunteerService } from '../services/volunteer.service';
 import { ActivatedRoute } from '@angular/router';
-import { Volunteer } from '../volunteer/volunteer.model';
+import { Volunteer } from '../volunteer.model';
+import { VolunteerService } from 'src/app/services/volunteer.service';
 
 @Component({
   selector: 'app-volunteer-overview',

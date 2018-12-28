@@ -10,6 +10,7 @@ import { VolunteerService } from '../services/volunteer.service';
 import { VolunteerFilter } from '../filters/volunteer-filter.model';
 import { CatalogueService } from '../services/catalogue.service';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 /**
  * @title Table retrieving data through HTTP
@@ -50,7 +51,7 @@ export class VolunteerTable implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
 
     constructor(private http: HttpClient, private volunteerService: VolunteerService,
-        private catalogueService: CatalogueService, public snackBar: MatSnackBar) { }
+        private catalogueService: CatalogueService, public snackBar: MatSnackBar, private router: Router) { }
 
     ngOnInit() {
         this.pageSize = 10;
@@ -155,6 +156,10 @@ export class VolunteerTable implements OnInit {
                 }
             }
         )
+    }
+
+    dataInfo(id: number) {
+        this.router.navigate(['volunteerInfo', id, 'edit']);
     }
 
     filterData() {

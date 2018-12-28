@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Volunteer } from '../volunteer/volunteer.model';
-import { CatalogueService } from '../services/catalogue.service';
-import { Citizenship } from '../models/citizenship.model';
-import { Sex } from '../models/sex.model';
 import { Observable } from 'rxjs';
 import { startWith, switchMap, map } from 'rxjs/operators';
-import { VolunteerService } from '../services/volunteer.service';
 import { MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Citizenship } from 'src/app/models/citizenship.model';
+import { Sex } from 'src/app/models/sex.model';
+import { Volunteer } from '../volunteer.model';
+import { CatalogueService } from 'src/app/services/catalogue.service';
+import { VolunteerService } from 'src/app/services/volunteer.service';
 
 @Component({
   selector: 'app-volunteer-edit',
@@ -69,9 +69,9 @@ export class VolunteerEditComponent implements OnInit {
       }
     );
 
-    this.route.params.subscribe(params => {
-      this.volunteer.id = params["id"];
-      this.volunteerService.get(this.volunteer.id).subscribe(data => {
+    this.route.parent.params.subscribe(params => {
+      this.volunteerService.get(params["id"]).subscribe(data => {
+        this.volunteer.id = data.id;
         this.volunteer.firstName = data.firstName;
         this.volunteer.lastName = data.lastName;
         this.volunteer.email = data.email;
