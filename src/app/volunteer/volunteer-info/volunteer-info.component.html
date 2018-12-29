@@ -1,7 +1,5 @@
-<div class="mat-elevatuion-z8 container">
-  <app-volunteer-overview></app-volunteer-overview>
-  <mat-divider></mat-divider>
-  <mat-divider></mat-divider>
+<div class="mat-elevation-z8 container basic-container">
+  <app-volunteer-overview class="container"></app-volunteer-overview>
   <nav mat-tab-nav-bar mat-align-tabs="end">
     <a mat-tab-link routerLink="./edit" routerLinkActive #rlaEdit="routerLinkActive" [active]="rlaEdit.isActive">
       Osnovno
@@ -19,5 +17,5 @@
       Troškovi
     </a>
   </nav>
-  <router-outlet></router-outlet>
+  <router-outlet class="container"></router-outlet>
 </div>

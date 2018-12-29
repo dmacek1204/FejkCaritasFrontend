@@ -24,6 +24,7 @@ import { VolunteerAddComponent } from './volunteer/volunteer-add/volunteer-add.c
 import { VolunteerInfoComponent } from './volunteer/volunteer-info/volunteer-info.component';
 import { VolunteerOverviewComponent } from './volunteer/volunteer-overview/volunteer-overview.component';
 import { VolunteerEditComponent } from './volunteer/volunteer-edit/volunteer-edit.component';
+import { ContractAddEditComponent } from './volunteer/contract/contract-add-edit/contract-add-edit.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { VolunteerEditComponent } from './volunteer/volunteer-edit/volunteer-edi
     ContractComponent,
     DocumentComponent,
     ExpenseComponent,
-    VolunteeringHoursComponent
+    VolunteeringHoursComponent,
+    ContractAddEditComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,10 @@ import { VolunteerEditComponent } from './volunteer/volunteer-edit/volunteer-edi
       provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ContractAddEditComponent
+  ]
 })
 export class AppModule { }
 

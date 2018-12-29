@@ -37,10 +37,6 @@
     margin-bottom: 32px;
 }
   
-  table {
-    width: 100%;
-  } 
-  
   
   .example-rate-limit-reached {
     color: #980000;

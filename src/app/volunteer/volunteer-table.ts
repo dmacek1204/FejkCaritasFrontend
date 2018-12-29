@@ -50,7 +50,7 @@ export class VolunteerTable implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    constructor(private http: HttpClient, private volunteerService: VolunteerService,
+    constructor(private volunteerService: VolunteerService,
         private catalogueService: CatalogueService, public snackBar: MatSnackBar, private router: Router) { }
 
     ngOnInit() {

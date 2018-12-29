@@ -22,6 +22,9 @@ body {
     margin-left: 24px;
     margin-right: 24px;
   }
+  table {
+    width: 100%;
+  } 
 
   .loading-shade {
     position: absolute;
@@ -43,3 +46,5 @@ body {
   .snackbar-error {
     background: red;
   }
+  
+  

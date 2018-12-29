@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Unos novog ugovora</h1>
+<div mat-dialog-content>
+
+  <form [formGroup]="contractForm">
+
+    <mat-form-field class="form-field-container">
+      <input matInput [matDatepicker]="startDatePicker" placeholder="Datum od" formControlName="startDate" required>
+      <mat-error *ngIf="contractForm.get('startDate').hasError('required')">Početni datum je obavezan</mat-error>
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-container">
+      <input matInput [matDatepicker]="endDatePicker" placeholder="Datum do" formControlName="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-container">
+      <input type="text" matInput formControlName="numberOfHours" placeholder="Broj sati" required>
+      <mat-error *ngIf="contractForm.get('numberOfHours').hasError('required')">
+        Broj sati je obvezan
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Spremi</button>
+</div>
