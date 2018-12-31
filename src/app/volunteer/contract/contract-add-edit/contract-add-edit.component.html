@@ -23,8 +23,11 @@
       </mat-error>
     </mat-form-field>
 
+    <mat-error *ngIf="contractForm.hasError('dates')">Početni datum mora biti poslije završnog datuma</mat-error>
+
   </form>
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="primary" (click)="onSubmit()">Spremi</button>
+  <button mat-raised-button (click)="onCancel()">Odustani</button>
 </div>

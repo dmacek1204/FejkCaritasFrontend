@@ -115,4 +115,17 @@ export class VolunteerAddComponent implements OnInit {
       this.oib.markAsTouched();
     }
   }
+
+  onClean(){
+    this.birthday.reset();
+    this.citizenship.setValue('');
+    this.sex.setValue('');
+    this.firstName.reset();
+    this.lastName.reset();
+    this.oib.reset();
+    this.username.reset();
+    this.email.reset();
+    this.outsideVolunteer = false;
+    this.potentialVolunteer = false;
+  }
 }

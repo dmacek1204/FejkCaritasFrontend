@@ -49,26 +49,29 @@ export class ContractComponent implements OnInit {
       })
       let contract: Contract;
       dialogRef.afterClosed().subscribe(data => {
-        contract = data;
-        contract.volunteerID = this.volunteerId;
-        contract.creationDate = new Date();
-        this.contractService.add(contract).subscribe(response => {
-          if (response) {
-            this.snackBar.open("Ugovor uspješno dodan", "Zatvori", {
-              duration: 10000,
-              panelClass: ['snackbar-success']
-            });
-          } else {
-            this.snackBar.open("Greška", "RIP", {
-              duration: 10000,
-              panelClass: ['snackbar-error']
-            });
-          }
-          this.contractService.getForVolunteer(this.volunteerId).subscribe(data => {
-            this.data = data;
-            this.isLoadingResults = false;
+        if (data) {
+          contract = data;
+          contract.volunteerID = this.volunteerId;
+          contract.creationDate = new Date();
+          this.contractService.add(contract).subscribe(response => {
+            if (response) {
+              this.snackBar.open("Ugovor uspješno dodan", "Zatvori", {
+                duration: 10000,
+                panelClass: ['snackbar-success']
+              });
+            } else {
+              this.snackBar.open("Greška", "RIP", {
+                duration: 10000,
+                panelClass: ['snackbar-error']
+              });
+            }
+            this.contractService.getForVolunteer(this.volunteerId).subscribe(data => {
+              this.data = data;
+              this.isLoadingResults = false;
+            })
           })
-        })
+        }
+
       })
 
     } else {
@@ -77,32 +80,34 @@ export class ContractComponent implements OnInit {
       })
       let contract: Contract;
       dialogRef.afterClosed().subscribe(data => {
-        contract = data;
-        contract.volunteerID = this.volunteerId;
-        contract.creationDate = new Date();
-        contract.id = row.id;
-        this.contractService.update(contract).subscribe(response => {
-          if (response) {
-            this.snackBar.open("Ugovor uspješno promjenjen", "Zatvori", {
-              duration: 10000,
-              panelClass: ['snackbar-success']
-            });
-          } else {
-            this.snackBar.open("Greška", "RIP", {
-              duration: 10000,
-              panelClass: ['snackbar-error']
-            });
-          }
-          this.contractService.getForVolunteer(this.volunteerId).subscribe(data => {
-            this.data = data;
-            this.isLoadingResults = false;
+        if (data) {
+          contract = data;
+          contract.volunteerID = this.volunteerId;
+          contract.creationDate = new Date();
+          contract.id = row.id;
+          this.contractService.update(contract).subscribe(response => {
+            if (response) {
+              this.snackBar.open("Ugovor uspješno promjenjen", "Zatvori", {
+                duration: 10000,
+                panelClass: ['snackbar-success']
+              });
+            } else {
+              this.snackBar.open("Greška", "RIP", {
+                duration: 10000,
+                panelClass: ['snackbar-error']
+              });
+            }
+            this.contractService.getForVolunteer(this.volunteerId).subscribe(data => {
+              this.data = data;
+              this.isLoadingResults = false;
+            })
           })
-        })
+        }
       })
     }
   }
 
-  deleteData(id: number){
+  deleteData(id: number) {
     this.contractService.delete(id).subscribe(response => {
       if (response) {
         this.snackBar.open("Ugovor uspješno obrisan", "Zatvori", {

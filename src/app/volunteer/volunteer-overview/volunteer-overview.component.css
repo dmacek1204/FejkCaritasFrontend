@@ -2,3 +2,11 @@
 .mat-expansion-panel-header:hover{
   background: #7b1fa2 !important;
 }
+
+.expansion-content-container{
+  position: relative; 
+  margin-top: 16px;
+  margin-bottom: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
+}

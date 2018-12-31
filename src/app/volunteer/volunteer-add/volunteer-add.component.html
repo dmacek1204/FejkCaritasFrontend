@@ -97,7 +97,8 @@
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="5" [rowspan]="1" color="primary">
-        <button type="submit" mat-raised-button color="primary" (click)="onSubmit()">Dodaj novog volontera</button>
+        <button type="submit" mat-raised-button color="primary" (click)="onSubmit()">Spremi</button>
+        <button type="button" mat-raised-button color="warn" (click)="onClean()">Očisti</button>
       </mat-grid-tile>
     </mat-grid-list>
   </form>
