@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Unos novog troška</h1>
+<div mat-dialog-content>
+
+  <form [formGroup]="expenseForm">
+
+    <mat-form-field class="form-field-container">
+      <mat-select placeholder="Godina" formControlName="year">
+        <mat-option *ngFor="let option of years" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="expenseForm.get('year').hasError('required')">Godina je obavezna</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-container">
+      <input matInput placeholder="Iznos" formControlName="amount">
+      <mat-error *ngIf="expenseForm.get('amount').hasError('required')">Iznos je obavezan</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-container">
+      <input matInput placeholder="Opis" formControlName="description">
+    </mat-form-field>
+
+    <mat-form-field class="form-field-container">
+      <input type="text" placeholder="Odaberite tip troška" matInput formControlName="expenseType" [matAutocomplete]="autoExpenseType"
+        required>
+      <mat-autocomplete #autoExpenseType="matAutocomplete">
+        <mat-option *ngFor="let option of filteredExpenseTypes | async" [value]="option.name">
+          {{ option.name }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="expenseForm.get('expenseType').hasError('required')">Tip troška je obavezan</mat-error>
+    </mat-form-field>
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Spremi</button>
+  <button mat-raised-button (click)="onCancel()" cdkFocusInitial>Odustani</button>
+</div>

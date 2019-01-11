@@ -25,6 +25,9 @@ import { VolunteerInfoComponent } from './volunteer/volunteer-info/volunteer-inf
 import { VolunteerOverviewComponent } from './volunteer/volunteer-overview/volunteer-overview.component';
 import { VolunteerEditComponent } from './volunteer/volunteer-edit/volunteer-edit.component';
 import { ContractAddEditComponent } from './volunteer/contract/contract-add-edit/contract-add-edit.component';
+import { VolunteeringHoursAddEditComponent } from './volunteer/volunteering-hours/volunteering-hours-add-edit/volunteering-hours-add-edit.component';
+import { ExpenseAddEditComponent } from './volunteer/expense/expense-add-edit/expense-add-edit.component';
+import { DocumentAddEditComponent } from './volunteer/document/document-add-edit/document-add-edit.component';
 
 
 @NgModule({
@@ -41,7 +44,10 @@ import { ContractAddEditComponent } from './volunteer/contract/contract-add-edit
     DocumentComponent,
     ExpenseComponent,
     VolunteeringHoursComponent,
-    ContractAddEditComponent
+    ContractAddEditComponent,
+    VolunteeringHoursAddEditComponent,
+    ExpenseAddEditComponent,
+    DocumentAddEditComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +71,10 @@ import { ContractAddEditComponent } from './volunteer/contract/contract-add-edit
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    ContractAddEditComponent
+    ContractAddEditComponent,
+    VolunteeringHoursAddEditComponent,
+    ExpenseAddEditComponent,
+    DocumentAddEditComponent
   ]
 })
 export class AppModule { }

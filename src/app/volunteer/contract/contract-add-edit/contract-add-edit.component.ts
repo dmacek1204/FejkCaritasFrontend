@@ -12,16 +12,6 @@ import { DateValidators } from 'src/app/form-validators/date-validators';
 export class ContractAddEditComponent implements OnInit {
 
   contractForm: FormGroup;
-  // contractForm = new FormGroup({
-  //   startDate: new FormControl('', [
-  //     Validators.required
-  //   ]),
-  //   endDate: new FormControl(''),
-  //   numberOfHours: new FormControl('', [
-  //     Validators.required
-  //   ])
-  //   }
-  // )
 
   constructor(public dialogRef: MatDialogRef<ContractAddEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Contract, private fb: FormBuilder) {

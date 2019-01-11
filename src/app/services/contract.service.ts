@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Contract } from '../volunteer/contract/contract.model';
 
@@ -12,10 +12,20 @@ export class ContractService {
   private contractUrl = this.apiUrl + '/Contract'
   constructor(private http: HttpClient) { }
 
-  public getForVolunteer(id: number): Observable<Array<Contract>> {
+  public getForVolunteer(id: number, pageIndex: number, pageSize: number): Observable<Array<Contract>> {
     let url = this.contractUrl + '/Volunteer/' + id.toString();
 
-    return this.http.get<Array<Contract>>(url);
+    let params = new HttpParams();
+    params = params.append('pageIndex', pageIndex.toString());
+    params = params.append('pageSize', pageSize.toString());
+
+    return this.http.get<Array<Contract>>(url, { params: params });
+  }
+
+  public getCountForVolunteer(id: number): Observable<number> {
+    let url = this.contractUrl + '/Volunteer/' + id.toString() + '/Count';
+
+    return this.http.get<number>(url);
   }
 
   public get(id: number): Observable<Contract> {

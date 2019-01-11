@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>Unos novog dokumenta</h1>
+<div mat-dialog-content>
+
+  <form [formGroup]="documentForm">
+
+    <mat-form-field class="form-field-container">
+      <input matInput [matDatepicker]="startDatePicker" placeholder="Datum od" formControlName="startDate" required>
+      <mat-error *ngIf="documentForm.get('startDate').hasError('required')">Početni datum je obavezan</mat-error>
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-container">
+      <input matInput [matDatepicker]="endDatePicker" placeholder="Datum do" formControlName="endDate">
+      <mat-error *ngIf="documentForm.get('startDate').hasError('required')">Krajnji datum je obavezan</mat-error>
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-container">
+      <input type="text" matInput formControlName="numberOfHours" placeholder="Broj sati" required>
+      <mat-error *ngIf="documentForm.get('numberOfHours').hasError('required')">
+        Broj sati je obvezan
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-container">
+        <input type="text" placeholder="Odaberite tip dokumenta" matInput formControlName="documentType" [matAutocomplete]="autoDocumentType"
+          required>
+        <mat-autocomplete panelWidth="400px" #autoDocumentType="matAutocomplete">
+          <mat-option *ngFor="let option of filteredDocumentTypes | async" [value]="option.name">
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="documentForm.get('documentType').hasError('required')">Tip dokumenta je obavezan</mat-error>
+      </mat-form-field>
+
+    <mat-error *ngIf="documentForm.hasError('dates')">Početni datum mora biti poslije završnog datuma</mat-error>
+
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Spremi</button>
+  <button mat-raised-button (click)="onCancel()" cdkFocusInitial>Odustani</button>
+</div>

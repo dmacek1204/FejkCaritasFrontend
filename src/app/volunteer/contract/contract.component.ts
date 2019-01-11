@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Contract } from './contract.model';
 import { HttpClient } from 'selenium-webdriver/http';
 import { ContractService } from '../../services/contract.service';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { MatSnackBar, MatDialog, PageEvent, MatPaginator } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { ContractAddEditComponent } from './contract-add-edit/contract-add-edit.component';
 
@@ -14,14 +14,18 @@ import { ContractAddEditComponent } from './contract-add-edit/contract-add-edit.
 export class ContractComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'startDate', 'endDate', 'numberOfHours', 'creationDate', 'actions'];
-  // exampleDatabase: ExampleHttpDao | null;
   data: Contract[];
   resultsLength;
-  // pageEvent: PageEvent;
-  // pageIndex: number;
-  // pageSize: number;
+
+  
+  pageEvent: PageEvent;
+  pageIndex: number;
+  pageSize: number;
   isLoadingResults = false;
   private volunteerId: number;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
 
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,17 +33,32 @@ export class ContractComponent implements OnInit {
   constructor(private contractService: ContractService, public snackBar: MatSnackBar, private route: ActivatedRoute, public dialog: MatDialog) { }
 
   ngOnInit() {
-    // this.pageSize = 10;
-    // this.pageIndex = 0;
+    this.pageSize = 10;
+    this.pageIndex = 0;
     this.isLoadingResults = true;
+    
 
     this.route.parent.params.subscribe(params => {
       this.volunteerId = params["id"];
-      this.contractService.getForVolunteer(params["id"]).subscribe(data => {
+      this.contractService.getCountForVolunteer(params["id"]).subscribe(count => {
+        this.resultsLength = count;
+      })
+      this.contractService.getForVolunteer(params["id"], this.pageIndex, this.pageSize).subscribe(data => {
         this.data = data;
         this.isLoadingResults = false;
       })
     })
+  }
+
+  getServerData(event: PageEvent) {
+    this.isLoadingResults = true;
+    
+
+    this.contractService.getForVolunteer(this.volunteerId, this.paginator.pageIndex, this.paginator.pageSize).subscribe(data => {
+      this.data = data;
+      this.isLoadingResults = false;
+    })
+
   }
 
   addEditContract(row: Contract) {
@@ -65,7 +84,10 @@ export class ContractComponent implements OnInit {
                 panelClass: ['snackbar-error']
               });
             }
-            this.contractService.getForVolunteer(this.volunteerId).subscribe(data => {
+            this.contractService.getCountForVolunteer(this.volunteerId).subscribe(count => {
+              this.resultsLength = count;
+            })
+            this.contractService.getForVolunteer(this.volunteerId, this.paginator.pageIndex, this.paginator.pageSize).subscribe(data => {
               this.data = data;
               this.isLoadingResults = false;
             })
@@ -97,7 +119,10 @@ export class ContractComponent implements OnInit {
                 panelClass: ['snackbar-error']
               });
             }
-            this.contractService.getForVolunteer(this.volunteerId).subscribe(data => {
+            this.contractService.getCountForVolunteer(this.volunteerId).subscribe(count => {
+              this.resultsLength = count;
+            })
+            this.contractService.getForVolunteer(this.volunteerId, this.paginator.pageIndex, this.paginator.pageSize).subscribe(data => {
               this.data = data;
               this.isLoadingResults = false;
             })
@@ -120,52 +145,13 @@ export class ContractComponent implements OnInit {
           panelClass: ['snackbar-error']
         });
       }
-      this.contractService.getForVolunteer(this.volunteerId).subscribe(data => {
+      this.contractService.getCountForVolunteer(this.volunteerId).subscribe(count => {
+        this.resultsLength = count;
+      })
+      this.contractService.getForVolunteer(this.volunteerId, this.paginator.pageIndex, this.paginator.pageSize).subscribe(data => {
         this.data = data;
         this.isLoadingResults = false;
       })
     })
   }
-
-  // getServerData(event: PageEvent) {
-  //   if (!this.filteredSearch) {
-  //     this.isLoadingResults = true;
-
-  //     this.volunteerService.getAll(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction).subscribe(
-  //       (data) => {
-  //         this.data = data;
-  //         this.isLoadingResults = false;
-
-  //       }
-  //     );
-  //   } else {
-  //     this.filterData();
-  //   }
-
-  // }
-
-  // deleteData(id: number) {
-  //   this.volunteerService.delete(id).subscribe(
-  //     response => {
-  //       if (response) {
-  //         this.snackBar.open("Volonter uspješno obrisan", "Zatvori", {
-  //           duration: 10000,
-  //           panelClass: ['snackbar-success']
-  //         });
-  //         this.isLoadingResults = true;
-  //         this.volunteerService.getAll(this.paginator.pageIndex, this.paginator.pageSize, this.sort.active, this.sort.direction).subscribe(
-  //           (data) => {
-  //             this.data = data;
-  //             this.isLoadingResults = false;
-  //           }
-  //         );
-  //       } else {
-  //         this.snackBar.open("Greška!", "RIP", {
-  //           duration: 10000,
-  //           panelClass: ['snackbar-error']
-  //         });
-  //       }
-  //     }
-  //   )
-  // }
 }
